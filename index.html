@@ -1,65 +1,208 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ThunderCrash Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Orbitron:wght@500;700;900&family=VT323&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <style>
-/* ========================================= */
-/* 1. RESET & GLOBAL STYLES */
-/* ========================================= */
-:root {
-    --bg-main: #0a0000;       
-    --bg-card: #140202;       
-    --primary: #ff0000;       
-    --accent-red: #ff1a1a;    
-    --accent-gold: #ff3b3b;   
-    --text-main: #ffffff;
-    --text-sub: #ff9b9b;
-    --border-color: #3a0d0d;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Player Neon</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #1a0000, #000);
+    color: white;
 }
 
-* { 
-    box-sizing: border-box; margin: 0; padding: 0; 
-    -webkit-tap-highlight-color: transparent; 
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,0,0,0.15) 10%, transparent 40%);
+    animation: moveBg 8s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes moveBg {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(-10%, -10%); }
+    100% { transform: translate(0,0); }
+}
+
+header, .container, footer {
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(90deg, #ff2e2e, #8b0000);
+    box-shadow: 0 0 20px red;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #0f0f0f;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255,0,0,0.3);
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 0 25px red;
+}
+
+.play-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    background: black;
+    color: #ff2e2e;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 0 10px red, inset 0 0 10px red;
+    transition: 0.3s;
+}
+
+.play-btn:hover {
+    box-shadow: 0 0 25px red, inset 0 0 15px red;
+    transform: scale(1.1);
+}
+
+.slider {
+    width: 100%;
+    margin-top: 15px;
+    appearance: none;
+    height: 5px;
+    background: #222;
+    border-radius: 5px;
     outline: none;
 }
 
-body {
-  font-family: 'Rajdhani', sans-serif;
-
-  /* BACKGROUND JPG + OVERLAY */
-  background:
-    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-    url("https://files.catbox.moe/glz7tw.jpg");
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-
-  color: var(--text-main);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative; 
-  overflow-x: hidden; 
-  padding-bottom: 80px; 
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
+    box-shadow: 0 0 10px red;
+    cursor: pointer;
 }
 
-::-webkit-scrollbar { width: 0px; }
+h3 {
+    text-shadow: 0 0 10px red;
+}
 
-    /* ========================================= */
-    /* 2. TRANSITIONS & ANIMATIONS */
-    /* ========================================= */
-    .page-container { 
-        display: none; 
-        padding: 80px 20px 20px 20px; 
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
+footer {
+    text-align: center;
+    padding: 15px;
+    opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔥 Sound Play By Zanss 🔥</h1>
+    <p>Lagu Untuk Lomba Drama TSM 1</p>
+</header>
+
+<div class="container">
+
+<!-- 1 -->
+<div class="card">
+    <h3>🐦 Kicauan Burung</h3>
+    <audio id="audio1" src="https://cropgif.net/audio/1778034965145-691941df-026f-4e02-9e74-6c816a9b9bd9.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio1', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio1', this)">
+</div>
+
+<!-- 2 -->
+<div class="card">
+    <h3>💀 Dramatis Pengutukan</h3>
+    <audio id="audio2" src="https://cropgif.net/audio/1778034986449-75efec50-336c-4238-a00e-55f96e34e4a4.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio2', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio2', this)">
+</div>
+
+<!-- 3 -->
+<div class="card">
+    <h3>🔥 Amukan Warga</h3>
+    <audio id="audio3" src="https://cropgif.net/audio/1778034620911-1ee3558d-3f28-43ef-bd69-01572394adfc.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio3', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio3', this)">
+</div>
+
+<!-- 4 -->
+<div class="card">
+    <h3>⚡ Gledeg</h3>
+    <audio id="audio4" src="https://cropgif.net/audio/1778035266678-a1bdcc40-6395-4dd5-a4cf-0b59c8b7e3a4.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio4', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio4', this)">
+</div>
+
+<!-- 5 -->
+<div class="card">
+    <h3>🌙 Penutup</h3>
+    <audio id="audio5" src="https://cropgif.net/audio/1778034532342-4eeee905-2a46-4a3d-a153-44611003df3f.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio5', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio5', this)">
+</div>
+
+<!-- 6 BARU -->
+<div class="card">
+    <h3>🗿 Suara Berubah Batu</h3>
+    <audio id="audio6" src="MASUKKAN_LINK_AUDIO_6.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio6', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio6', this)">
+</div>
+
+</div>
+
+<footer>
+    © Website Audio By Zanss 🔥
+</footer>
+
+<script>
+function toggleAudio(id, btn) {
+    let audio = document.getElementById(id);
+
+    if (audio.paused) {
+        audio.play();
+        btn.innerHTML = '❚❚';
+    } else {
+        audio.pause();
+        btn.innerHTML = '▶';
     }
+}
+
+document.querySelectorAll("audio").forEach(audio => {
+    audio.addEventListener("timeupdate", () => {
+        let slider = audio.parentElement.querySelector(".slider");
+        slider.value = (audio.currentTime / audio.duration) * 100 || 0;
+    });
+});
+
+function seekAudio(id, slider) {
+    let audio = document.getElementById(id);
+    audio.currentTime = (slider.value / 100) * audio.duration;
+}
+</script>
+
+</body>
+</html>    }
     
     .page-container.active { 
         display: block; 
