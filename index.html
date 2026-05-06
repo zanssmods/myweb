@@ -202,4 +202,147 @@ function seekAudio(id, slider) {
 </script>
 
 </body>
+</html>    box-shadow: 0 0 25px red;
+}
+
+.play-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    background: black;
+    color: #ff2e2e;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 0 10px red, inset 0 0 10px red;
+    transition: 0.3s;
+}
+
+.play-btn:hover {
+    box-shadow: 0 0 25px red, inset 0 0 15px red;
+    transform: scale(1.1);
+}
+
+.slider {
+    width: 100%;
+    margin-top: 15px;
+    appearance: none;
+    height: 5px;
+    background: #222;
+    border-radius: 5px;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
+    box-shadow: 0 0 10px red;
+    cursor: pointer;
+}
+
+h3 {
+    text-shadow: 0 0 10px red;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔥 Sound Play By Zanss 🔥</h1>
+    <p>Lagu Untuk Lomba Drama TSM 1</p>
+</header>
+
+<div class="container">
+
+<!-- 1 -->
+<div class="card">
+    <h3>🐦 Kicauan Burung</h3>
+    <audio id="audio1" src="https://cropgif.net/audio/1778034965145-691941df-026f-4e02-9e74-6c816a9b9bd9.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio1', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio1', this)">
+</div>
+
+<!-- 2 -->
+<div class="card">
+    <h3>💀 Dramatis Pengutukan</h3>
+    <audio id="audio2" src="https://cropgif.net/audio/1778034986449-75efec50-336c-4238-a00e-55f96e34e4a4.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio2', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio2', this)">
+</div>
+
+<!-- 3 -->
+<div class="card">
+    <h3>🔥 Amukan Warga</h3>
+    <audio id="audio3" src="https://cropgif.net/audio/1778034620911-1ee3558d-3f28-43ef-bd69-01572394adfc.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio3', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio3', this)">
+</div>
+
+<!-- 4 -->
+<div class="card">
+    <h3>⚡ Gledeg</h3>
+    <audio id="audio4" src="https://cropgif.net/audio/1778035266678-a1bdcc40-6395-4dd5-a4cf-0b59c8b7e3a4.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio4', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio4', this)">
+</div>
+
+<!-- 5 -->
+<div class="card">
+    <h3>🌙 Penutup</h3>
+    <audio id="audio5" src="https://cropgif.net/audio/1778034532342-4eeee905-2a46-4a3d-a153-44611003df3f.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio5', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio5', this)">
+</div>
+
+<!-- 6 BARU -->
+<div class="card">
+    <h3>🗿 Suara Berubah Batu</h3>
+    <audio id="audio6" src="MASUKKAN_LINK_AUDIO_6.mp3"></audio>
+    <button class="play-btn" onclick="toggleAudio('audio6', this)">▶</button>
+    <input type="range" class="slider" value="0" onchange="seekAudio('audio6', this)">
+</div>
+
+</div>
+
+<footer>
+    © Website Audio By Zanss 🔥
+</footer>
+
+<script>
+function toggleAudio(id, btn) {
+    let audio = document.getElementById(id);
+
+    if (audio.paused) {
+        audio.play();
+        btn.innerHTML = '❚❚';
+    } else {
+        audio.pause();
+        btn.innerHTML = '▶';
+    }
+}
+
+document.querySelectorAll("audio").forEach(audio => {
+    audio.addEventListener("timeupdate", () => {
+        let slider = audio.parentElement.querySelector(".slider");
+        slider.value = (audio.currentTime / audio.duration) * 100 || 0;
+    });
+});
+
+function seekAudio(id, slider) {
+    let audio = document.getElementById(id);
+    audio.currentTime = (slider.value / 100) * audio.duration;
+}
+</script>
+
+</body>
 </html>
